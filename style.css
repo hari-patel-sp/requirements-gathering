@@ -1,0 +1,138 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+nav.top-sticky {
+  position: fixed;
+  top: 0;
+}
+nav.bottom-sticky {
+  height: 100px;
+}
+nav .brand-logo {
+  padding: 5px 0;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
+.content {
+  min-height: calc(100vh - 170px);
+  padding-top: 0.5rem;
+}
+
+.wizard-progress {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  position: relative;
+}
+.wizard-progress .step {
+  display: table-cell;
+  text-align: center;
+  vertical-align: top;
+  overflow: visible;
+  position: relative;
+  font-size: 14px;
+  color: #999;
+  font-weight: bold;
+}
+.wizard-progress .step:not(:last-child):before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 37px;
+  background-color: #999;
+  height: 6px;
+  width: 100%;
+}
+.wizard-progress .step .node {
+  display: inline-block;
+  border: 6px solid #999;
+  background-color: #999;
+  border-radius: 18px;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  margin-left: -18px;
+}
+.wizard-progress .step.complete:before {
+  background-color: #3f51b5;
+}
+.wizard-progress .step.complete .node {
+  border-color: #3f51b5;
+  background-color: #3f51b5;
+}
+.wizard-progress .step.complete .node:before {
+  font-family: FontAwesome;
+  content: "<i class=\"material-icons\">check</i>";
+}
+.wizard-progress .step.in-progress:before {
+  background: #3f51b5;
+  background: -moz-linear-gradient(left, #3f51b5 0%, #999 100%);
+  background: -webkit-linear-gradient(left, #3f51b5 0%, #999 100%);
+  background: linear-gradient(to right, #3f51b5 0%, #999 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(     startColorstr='#3f51b5', endColorstr='#999',GradientType=1 );
+}
+.wizard-progress .step.in-progress .node {
+  border-color: #3f51b5;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 0; /* Location of the box */
+  left: 0;
+  top: 150px;
+  width: 30%; /* Half width */
+  height: 175px; /* Full height */
+  overflow: none; /* Enable scroll if needed */
+  background-color: #ededed;
+  border: 2px solid #616161;
+}
+
+/* Modal Content */
+.modal-content-no-pad {
+  background-color: #ededed;
+  margin: auto;
+  padding: 25px;
+  width: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: #333;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#wizard-progress {
+  margin-top:100px;
+}
+
+.container.bottom-margin {
+  margin-bottom: 100px;
+}

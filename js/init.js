@@ -1117,12 +1117,6 @@ function generateMarkdownData() {
         }
 
         do {
-          //For each entry in the module, get the JSON object and render it to the UI
-          if(moduleName == "hr") { renderHRSourceCard(arrayCounter); hr = true;}
-          if(moduleName == "applications") { renderApplicationCard(arrayCounter); applications = true;}
-          if(moduleName == "identities") { renderLCSCard(arrayCounter); identities = true;}
-          if(moduleName == "conversions") { renderConversionCard(arrayCounter); conversions = true;}
-
           var entryObj = entries[arrayCounter-1];
           if(typeof entryObj !== "undefined") {
             for(var dtoCounter=0; dtoCounter<moduleDTO.length; dtoCounter++) {
@@ -1169,13 +1163,13 @@ function downloadResponses() {
 
 function sendAsEmail() {
 
-  generateMarkdownData();
-  var docData = localStorage.getItem("mdData");
-  saveTextAs(docData,"responses.md");
-
   showModal("Sorry! This feature isn't supported in offline mode just yet.");
 
-  /*var recipientEmail = $("#csm-email").val();
+  /*generateMarkdownData();
+  var docData = localStorage.getItem("mdData");
+  saveTextAs(docData,"responses.md");
+  
+  var recipientEmail = $("#csm-email").val();
   var recipientName = $("#csm-name").val();
   var customerName = $("#company-name").val();
 

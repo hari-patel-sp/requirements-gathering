@@ -54,7 +54,7 @@
             gaps or questions.
           </p>
           <p class="black-text">
-            As you work through this wizard, we will automatically save your work every 15 seconds and also each time you click the "Next" or "Save Progress" buttons. Once you are finished, 
+            As you work through this wizard, we will automatically save your work each time you click the "Next" or "Save Progress" buttons. Once you are finished, 
             simply click the "Send to SailPoint" button at the top of the page to generate a data file that can be downloaded and emailed to SailPoint 
             for review.
           </p>
@@ -69,9 +69,9 @@
 
     <div id="wizard-progress" style="display:none;">
       <div class="row">
-        <div class="progress-header-container" style="width:40%;"><span class="progress-header first">Foundation</span></div>
+        <div class="progress-header-container" style="width:30%;"><span class="progress-header first">Foundation</span></div>
         <div class="progress-header-container" style="width:10%;"><span class="progress-header">Password</span></div>
-        <div class="progress-header-container" style="width:30%;"><span class="progress-header">Provisioning</span></div>
+        <div class="progress-header-container" style="width:40%;"><span class="progress-header">Provisioning</span></div>
         <div class="progress-header-container" style="width:10%;"><span class="progress-header">Governance</span></div>
         <div class="progress-header-container" style="width:10%;"><span class="progress-header last">Other</span></div>
       </div>
@@ -79,11 +79,11 @@
         <li id="wizard-hr" class="hotlink active"> <span class="bubble"></span>HR Sources</li>
         <li id="wizard-applications" class="hotlink incomplete"> <span class="bubble"></span>Applications</li>
         <li id="wizard-authentication" class="hotlink incomplete"> <span class="bubble"></span>Authentication</li>
-        <li id="wizard-identities" class="hotlink incomplete"> <span class="bubble"></span>Joiner / Leaver</li>
         <li id="wizard-password" class="hotlink incomplete"> <span class="bubble"></span>Password Management</li>
+        <li id="wizard-identities" class="hotlink incomplete"> <span class="bubble"></span>Joiner / Leaver</li>
         <li id="wizard-conversions" class="hotlink incomplete"> <span class="bubble"></span>Conversions</li>
         <li id="wizard-provisioning" class="hotlink incomplete"> <span class="bubble"></span>Provisioning</li>
-        <li id="wizard-roles-and-access" class="hotlink incomplete"> <span class="bubble"></span>Roles & Access</li>
+        <li id="wizard-rolesAndAccess" class="hotlink incomplete"> <span class="bubble"></span>Roles & Access</li>
         <li id="wizard-certifications" class="hotlink incomplete"> <span class="bubble"></span>Certifications</li>
         <li id="wizard-integrations" class="hotlink incomplete"> <span class="bubble"></span>Advanced Integrations</li>
       </ul>
@@ -94,12 +94,18 @@
         <div class="row" id="hr-cards">
           <h4>HR Sources</h4>
           <p class="black-text">
-            Please specify the name and type of each Human Resources application that is in scope for this project. For many organizations, this is a single source of accounts for employees, contingent workers and contractors. However, if you have different applications for each type of worker, please use the "Add Another" link to extend this form with additional inputs for those applications.
+            Please specify the name and type of each Human Resources application that is in scope for this project. For many organizations, this is a single source of accounts for employees, contingent workers and contractors. However, if you have different applications for each type of worker, please use the "Add" link to extend this form with additional inputs for those applications.
+          </p>
+          <p class="black-text">
+            For connectivity, if you are unsure of how you could integrate your target application with SailPoint, please review our <a href="which-connector-to-use.html" target="_blank">Deciding Which Connector to Use</a> guide on how to choose the right connector.
+          </p>
+          <p class="black-text">
+            To get started, click the "Add Source" link below.
           </p>
           
         </div>
         <div class="row">
-          <span class="right blue-text darken-1 page-link" id="add-hr-source-link">Add Another Source</span>
+          <span class="right blue-text darken-1 page-link" id="add-hr-source-link">Add Source</span>
         </div>
       </div>
 
@@ -110,12 +116,14 @@
             This section is where you can provide information about all of the downstream applications/targets that are in scope for your project (e.g., Active Directory, ServiceNow, proprietary databases, etc.). The "Data Change Freq." field is where you can specify how often IdentityNow will need to bring in data from this source, and the "Account Correlation Info" field is where you can identify what elements of the user's account within this source can be used to link it to the HR identity or person who owns it.
           </p>
           <p class="black-text">
-            For connectivity, if you are unsure of how you could integrate your target application with SailPoint, please review our <a href="https://community.sailpoint.com/t5/IdentityNow-Wiki/Best-Practices-Deciding-Which-Connector-to-Use/ta-p/76648" target="_blank">Deciding Which Connector to Use</a> guide on how to choose the right connector.
+            For connectivity, if you are unsure of how you could integrate your target application with SailPoint, please review our <a href="which-connector-to-use.html" target="_blank">Deciding Which Connector to Use</a> guide on how to choose the right connector.
           </p>
-          
+          <p class="black-text">
+            To get started, click the "Add Application" link below.
+          </p>
         </div>
         <div class="row">
-          <span class="right blue-text darken-1 page-link" id="add-application-link">Add Another Application</span>
+          <span class="right blue-text darken-1 page-link" id="add-application-link">Add Application</span>
         </div>
       </div>
 
@@ -172,8 +180,8 @@
                       </div>
                       <div class="row">
                         <div class="input-field col s12 m6 l3">
-                          <input data-class="authentication" placeholder="" data-key="mfaProvider" id="authentication-mfaProvider-1" type="text" class="" value="">
-                          <label for="authentication-mfaProvider-1">MFA Provider</label>
+                          <input data-class="authentication" placeholder="" data-key="providerMfa" id="authentication-providerMfa-1" type="text" class="" value="">
+                          <label for="authentication-providerMfa-1">MFA Provider</label>
                         </div>
                         <div class="input-field col s12 m6 l9">
                           <textarea data-class="authentication" placeholder="" data-key="comments" id="authentication-comments-1" class="materialize-textarea"></textarea>
@@ -193,7 +201,13 @@
         <div class="row" id="identities-cards">
           <h4>Joiner / Leaver</h4>
           <p class="black-text">
-            In IdentityNow parlance, "lifecycle states" refer to stages within an employee's tenure at your organization that result in changes to his/her access (joiner/mover/leaver). For example, if you have workers who come in from HR prior to their start date, and require certain accounts or items provisioned for them prior to their start date, this might be classified as a "prehire" state. Or, if a user were to go on leave, and that status requires access to some system to be suspended, this might be an "on leave" lifecycle state.
+            In IdentityNow parlance, "lifecycle states" refer to stages within an employee's tenure at your organization that result in changes to his/her access (joiner/mover/leaver). For example, if you have workers who come in from HR prior to their start date, and require certain accounts or items provisioned for them prior to their start date, this might be classified as a "prehire" state. Or, if a user were to go on leave, and that requires access to some systems to be suspended, this might be an "on leave" lifecycle state.
+          </p>
+          <p class="black-text">
+            Similarly, you may have several types of statuses related to worker offboarding. Users might initially be "terminated" upon their employment end date being reached, but perhaps that means that accounts are only disabled for a brief period of time. It might be the case that accounts are deleted from the target system after a period of 30 days -- this could be defined as its own "deleted" state.
+          </p>
+          <p class="black-text">
+            To get started, click the "Add Lifecycle State" link below.
           </p>
 
           <span id="lcs-cards">
@@ -201,7 +215,7 @@
           </span>
         </div>
         <div class="row">
-          <span class="right blue-text darken-1 page-link" id="add-lcs-link">Add Another Lifecycle State</span>
+          <span class="right blue-text darken-1 page-link" id="add-lcs-link">Add Lifecycle State</span>
         </div>
       </div>
 
@@ -212,7 +226,7 @@
             IdentityNow offers various password management features such as password syncing, password recovery (both authenticated and unauthenticated flows), account unlock and local password reset support. This form allows you to specify which of those features, if any, are in scope for your project.
           </p>
           <p class="black-text">
-            IdentityNow's <a href="https://community.sailpoint.com/t5/Common-Connectors/Password-Interceptor-for-Microsoft-Active-Directory/ta-p/79420" target="_blank">Password Interceptor</a> feature allows end users to change their password from their desktop devices, and still allow IdentityNow to synchronize that password change with other applications within the sync group. Our <a href="https://community.sailpoint.com/t5/Common-Connectors/Desktop-Password-Reset/ta-p/78238" target="_blank">Desktop Password Reset</a> feature allows end users who have been locked out of their local device to launch an embedded web browser from their Windows logon screen to initiate a password reset flow that will automatically update their Active Directory credentials.
+            IdentityNow's <a href="password-interceptor.html" target="_blank">Password Interceptor</a> feature allows end users to change their password from their desktop devices, and still allow IdentityNow to synchronize that password change with other applications within the sync group. Our <a href="desktop-password-reset.html" target="_blank">Desktop Password Reset</a> feature allows end users who have been locked out of their local device to launch an embedded web browser from their Windows logon screen to initiate a password reset flow that will automatically update their Active Directory credentials.
           </p>
           <div class="row" data-class="password-card" id="password-card-1">
             <div class="col s12 m12 l12">
@@ -241,8 +255,8 @@
                           <span class="helper-text"><div class="tooltip">What does this mean?<span class="tooltiptext">Please reference the Desktop Password Reset article linked above for details on this feature.</span></div></span>
                         </div>
                         <div class="input-field col s12 m12 l8">
-                          <textarea data-class="password" placeholder="e.g., Active Directory, Oracle EBS and ServiceNow should all have their passwords synced" data-key="sourcesToSync" id="password-sourcesToSync-1" class="materialize-textarea"></textarea>
-                          <label for="authentication-sourcesToSync-1">Password Sync Group Requirements</label>
+                          <textarea data-class="password" placeholder="e.g., Active Directory, Oracle EBS and ServiceNow passwords should all be the same" data-key="sourcesToSync" id="password-sourcesToSync-1" class="materialize-textarea"></textarea>
+                          <label for="password-sourcesToSync-1">Password Sync Group Requirements</label>
                         </div>
                       </div>
                       <div class="row">
@@ -266,12 +280,15 @@
           <p class="black-text">
             Some common conversion scenarios are when a contractor or contingent worker becomes a full-time employee, or vice versa. In such cases, it would be helpful to know which systems these workers retain access in versus which they must be deprovisioned from.
           </p>
+          <p class="black-text">
+            To get started, click the "Add Conversion Scenario" link below.
+          </p>
 
           <span id="movers-cards">
 
           </span>
           <div class="row">
-            <span class="right blue-text darken-1 page-link" id="add-conversions-link">Add Another Conversion Scenario</span>
+            <span class="right blue-text darken-1 page-link" id="add-conversions-link">Add Conversion Scenario</span>
           </div>
         </div>
       </div>
@@ -288,62 +305,65 @@
         </div>
       </div>
 
-      <div class="user-form section" id="roles-and-access" style="display:none;">
-        <div class="row" id="roles-and-access-cards">
+      <div class="user-form section" id="rolesAndAccess" style="display:none;">
+        <div class="row" id="rolesAndAccess-cards">
           <h4>Roles & Access</h4>
           <p class="black-text">
             If you have a Role-Based Access Control (RBAC) program, or allow some level of requestable access from your end users, please provide some information regarding these programs below. What is important to call out are things that might drive what roles users can/cannot have as a birthright, as well as any types of approval workflows that might need to be modeled within IdentityNow.
           </p>
-          <div class="col s12 m12 l12">
-            <div class="card grey lighten-4">
-              <div class="card-content">
-                <span class="card-title">Roles and Access Profiles</span>
-                <div class="row">
-                  <form class="col s12 m12 l12">
-                    <div class="row">
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="roles-and-access" data-key="robo" id="roles-and-access-robo-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Requests on Behalf Of?</label>
+          <div class="row" data-class="rolesAndAccess-card" id="rolesAndAccess-card-1">
+            <div class="col s12 m12 l12">
+              <div class="card grey lighten-4">
+                <div class="card-content">
+                  <span class="card-title">Roles and Access Profiles</span>
+                  <div class="row">
+                    <form class="col s12 m12 l12">
+                      <div class="row">
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="rolesAndAccess" data-key="robo" id="rolesAndAccess-robo-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Requests on Behalf Of?</label>
+                        </div>
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="rolesAndAccess" data-key="forRobo" id="rolesAndAccess-forRobo-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Managers Only">Managers Only</option>
+                            <option class="indigo-text darken-4" value="All Users">All Users</option>
+                          </select>
+                          <label>ROBO Allowed For</label>
+                        </div>
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="rolesAndAccess" data-key="rbac" id="rolesAndAccess-rbac-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Role-Based Access</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                          <input data-class="rolesAndAccess" placeholder="" data-key="approvalProcesses" id="rolesAndAccess-approvalProcesses-1" type="text" class="" value="">
+                          <label for="rolesAndAccess-approvalProcesses-1">Approval Workflows</label>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="roles-and-access" data-key="roboFor" id="roles-and-access-roboFor-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Managers Only">Managers Only</option>
-                          <option class="indigo-text darken-4" value="All Users">All Users</option>
-                        </select>
-                        <label>ROBO Allowed For</label>
+                      <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                          <textarea data-class="rolesAndAccess" placeholder="e.g., All users in the 'Finance' department gain membership in the 'Financial Team' group within Active Directory" data-key="descRbac" id="rolesAndAccess-descRbac-1" class="materialize-textarea"></textarea>
+                          <label for="rolesAndAccess-descRbac-1">Role-Based Access Description</label>
+                          <span class="helper-text"><div class="tooltip">What does this mean?<span class="tooltiptext">What type of logic do you use to determine access that users automatically have based on their role in the organization? Do you consider job title, department, office location, etc.?</span></div></span>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="roles-and-access" data-key="rbac" id="roles-and-access-rbac-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Role-Based Access</label>
+                      <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                          <textarea data-class="rolesAndAccess" placeholder="" data-key="comments" id="rolesAndAccess-comments-1" class="materialize-textarea"></textarea>
+                          <label for="rolesAndAccess-comments-1">Additional Notes/Comments (optional)</label>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m6 l6">
-                        <input data-class="roles-and-access" placeholder="" data-key="approvalProcesses" id="roles-and-access-approvalProcesses-1" type="text" class="" value="">
-                        <label for="roles-and-access-approvalProcesses-1">Approval Workflows</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m12 l12">
-                        <textarea data-class="roles-and-access" placeholder="" data-key="rbacDesc" id="roles-and-access-rbacDesc-1" class="materialize-textarea"></textarea>
-                        <label for="roles-and-access-rbacDesc-1">Role-Based Access Description</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m12 l12">
-                        <textarea data-class="roles-and-access" placeholder="" data-key="comments" id="roles-and-access-comments-1" class="materialize-textarea"></textarea>
-                        <label for="roles-and-access-comments-1">Additional Notes/Comments (optional)</label>
-                      </div>
-                    </div>
-                  </form>
-                </div> 
+                    </form>
+                  </div> 
+                </div>
               </div>
             </div>
           </div>
@@ -356,70 +376,72 @@
           <p class="black-text">
             Certifications, or User Access Reviews, are often part of an organization-wide audit requirement. Please help us understand which of the below types of certifications we need to be able to accommodate within IdentityNow. "Ad Hoc" certs can be things such as a one-off campaign to review access whenever a user changes job titles or transitions from an employee to a contractor.
           </p>
-          <div class="col s12 m12 l12">
-            <div class="card grey lighten-4">
-              <div class="card-content">
-                <span class="card-title">User Access Reviews and Certifications</span>
-                <div class="row">
-                  <form class="col s12 m12 l12">
-                    <div class="row">
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="certifications" data-key="managerCerts" id="certifications-managerCerts-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Manager Certs?</label>
+          <div class="row" data-class="certifications-card" id="certifications-card-1">
+            <div class="col s12 m12 l12">
+              <div class="card grey lighten-4">
+                <div class="card-content">
+                  <span class="card-title">User Access Reviews and Certifications</span>
+                  <div class="row">
+                    <form class="col s12 m12 l12">
+                      <div class="row">
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="certifications" data-key="managerCerts" id="certifications-managerCerts-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Manager Certs?</label>
+                        </div>
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="certifications" data-key="sourceOwnerCerts" id="certifications-sourceOwnerCerts-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Source Owner Certs?</label>
+                        </div>
+                        <div class="input-field col s12 m12 l8">
+                          <textarea data-class="certifications" placeholder="" data-key="certFrequency" id="certifications-certFrequency-1" class="materialize-textarea"></textarea>
+                          <label for="certifications-certFrequency-1">Scheduled Certs Frequency</label>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="certifications" data-key="sourceOwnerCerts" id="certifications-sourceOwnerCerts-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Source Owner Certs?</label>
+                      <div class="row">
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="certifications" data-key="eventBased" id="certifications-eventBased-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Event-Based Certs?</label>
+                        </div>
+                        <div class="input-field col s12 m6 l10">
+                          <input data-class="certifications" placeholder="" data-key="eventBasedDesc" id="certifications-descEventBased-1" type="text" class="" value="">
+                          <label for="certifications-descEventBased-1">Description of Event-Based Cert Needs</label>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m12 l8">
-                        <textarea data-class="certifications" placeholder="" data-key="certFrequency" id="certifications-certFrequency-1" class="materialize-textarea"></textarea>
-                        <label for="certifications-certFrequency-1">Scheduled Certs Frequency</label>
+                      <div class="row">
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="certifications" data-key="adHoc" id="certifications-adHoc-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Ad Hoc Certs?</label>
+                        </div>
+                        <div class="input-field col s12 m6 l10">
+                          <input data-class="certifications" placeholder="" data-key="adHocDesc" id="certifications-descAdHoc-1" type="text" class="" value="">
+                          <label for="certifications-descAdHoc-1">Description of Ad Hoc Cert Needs</label>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="certifications" data-key="eventBased" id="certifications-eventBased-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Event-Based Certs?</label>
+                      <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                          <textarea data-class="certifications" placeholder="" data-key="comments" id="certifications-comments-1" class="materialize-textarea"></textarea>
+                          <label for="certifications-comments-1">Additional Notes/Comments (optional)</label>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m6 l10">
-                        <input data-class="certifications" placeholder="" data-key="eventBasedDesc" id="certifications-eventBasedDesc-1" type="text" class="" value="">
-                        <label for="certifications-eventBasedDesc-1">Description of Event-Based Cert Needs</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="certifications" data-key="adHoc" id="certifications-adHoc-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Ad Hoc Certs?</label>
-                      </div>
-                      <div class="input-field col s12 m6 l10">
-                        <input data-class="certifications" placeholder="" data-key="adHocDesc" id="certifications-adHocDesc-1" type="text" class="" value="">
-                        <label for="certifications-adHocDesc-1">Description of Ad Hoc Cert Needs</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m12 l12">
-                        <textarea data-class="certifications" placeholder="" data-key="comments" id="certifications-comments-1" class="materialize-textarea"></textarea>
-                        <label for="certifications-comments-1">Additional Notes/Comments (optional)</label>
-                      </div>
-                    </div>
-                  </form>
-                </div> 
+                    </form>
+                  </div> 
+                </div>
               </div>
             </div>
           </div>
@@ -432,44 +454,47 @@
           <p class="black-text">
             Integrations are often add-on workflows to the IdentityNow process to handle notification or task creation of things that are not directly connected to the IdentityNow platform. For example, creating accounts in a disconnected source, or requesting computer hardware for a new hire. Oftentimes, customers would like to send these provisioning activities to an ITSM platform such as ServiceNow or Jira Service Desk. If you have any requirements around using this functionality, please describe them below.
           </p>
-          <div class="col s12 m12 l12">
-            <div class="card grey lighten-4">
-              <div class="card-content">
-                <span class="card-title">Ticketing Integration/Manual Task Information</span>
-                <div class="row">
-                  <form class="col s12 m12 l12">
-                    <div class="row">
-                      <div class="input-field col s12 m6 l6">
-                        <select class="indigo-text darken-4" data-class="integrations" data-key="ticketingSystem" id="integrations-ticketingSystem-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="4me">4me</option>
-                          <option class="indigo-text darken-4" value="Automated Email">Automated Email</option>
-                          <option class="indigo-text darken-4" value="Cherwell">Cherwell</option>
-                          <option class="indigo-text darken-4" value="Jira Service Desk">Jira Service Desk</option>
-                          <option class="indigo-text darken-4" value="Manage Engine">Manage Engine</option>
-                          <option class="indigo-text darken-4" value="ServiceNow Catalog Integration">ServiceNow Catalog Integration</option>
-                          <option class="indigo-text darken-4" value="ServiceNow Ticket Integration">ServiceNow Ticket Integration</option>
-                          <option class="indigo-text darken-4" value="Other">Other</option>
-                        </select>
-                        <label>Ticketing System</label>
+          <div class="row" data-class="integrations-card" id="integrations-card-1">
+            <div class="col s12 m12 l12">
+              <div class="card grey lighten-4">
+                <div class="card-content">
+                  <span class="card-title">Ticketing Integration/Manual Task Information</span>
+                  <div class="row">
+                    <form class="col s12 m12 l12">
+                      <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                          <select class="indigo-text darken-4" data-class="integrations" data-key="ticketingSystem" id="integrations-ticketingSystem-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="4me">4me</option>
+                            <option class="indigo-text darken-4" value="Automated Email">Automated Email</option>
+                            <option class="indigo-text darken-4" value="Cherwell">Cherwell</option>
+                            <option class="indigo-text darken-4" value="Jira Service Desk">Jira Service Desk</option>
+                            <option class="indigo-text darken-4" value="Manage Engine">Manage Engine</option>
+                            <option class="indigo-text darken-4" value="ServiceNow Catalog Integration">ServiceNow Catalog Integration</option>
+                            <option class="indigo-text darken-4" value="ServiceNow Ticket Integration">ServiceNow Ticket Integration</option>
+                            <option class="indigo-text darken-4" value="Other">Other</option>
+                          </select>
+                          <label>Ticketing System</label>
+                        </div>
+                        <div class="input-field col s12 m6 l2">
+                          <select class="indigo-text darken-4" data-class="integrations" data-key="sandbox" id="integrations-sandbox-1">
+                            <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                            <option class="indigo-text darken-4" value="Yes">Yes</option>
+                            <option class="indigo-text darken-4" value="No">No</option>
+                          </select>
+                          <label>Sandbox/Dev Instance?</label>
+                          <span class="helper-text"><div class="tooltip">What does this mean?<span class="tooltiptext">Is there a 'test' system or dummy data available for us to develop against?</span></div></span>
+                        </div>
                       </div>
-                      <div class="input-field col s12 m6 l2">
-                        <select class="indigo-text darken-4" data-class="integrations" data-key="sandbox" id="integrations-sandbox-1">
-                          <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
-                          <option class="indigo-text darken-4" value="Yes">Yes</option>
-                          <option class="indigo-text darken-4" value="No">No</option>
-                        </select>
-                        <label>Sandbox/Dev Instance?</label>
+                      <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                          <textarea data-class="integrations" placeholder="" data-key="comments" id="integrations-comments-1" class="materialize-textarea"></textarea>
+                          <label for="integrations-comments-1">Additional Notes/Comments (optional)</label>
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m12 l12">
-                        <textarea data-class="integrations" placeholder="" data-key="comments" id="integrations-comments-1" class="materialize-textarea"></textarea>
-                        <label for="integrations-comments-1">Additional Notes/Comments (optional)</label>
-                      </div>
-                    </div>
-                  </form>
-                </div> 
+                    </form>
+                  </div> 
+                </div>
               </div>
             </div>
           </div>
@@ -492,12 +517,12 @@
           <p class="black-text"></p>
             Alternatively, you can provide the name and email address of your Customer Success Manager (CSM) using the form, and send an email message to him/her with your responses already populated in the message.
           </p>
-          <p class="black-text"></p>
+          <!--<p class="black-text"></p>
             Once we receive your responses, a member of the SailPoint Services team will reach out to you with next steps. In the meantime, we strongly encourage that you and/or your IdentityNow implementation team members complete our <a href="https://community.sailpoint.com/t5/Getting-Started/ct-p/IDN_Get_started#jive_content_id_Training" target="_blank">free training</a> courses to familiarize yourselves with our product.
-          </p>
-          <p class="black-text"></p>
-            Also, please reach out to your networking and technical teams so that they can begin to configuring your <a href="https://community.sailpoint.com/t5/Connectors/Virtual-Appliance-Reference-Guide/ta-p/74641" target="_blank">Virtual Appliances</a>. Doing so now will ensure that you are ready to hit the ground running and being onboarding sources.
-          </p>
+          </p>-->
+          <!--<p class="black-text"></p>
+            Also, please reach out to your networking and technical teams so that they can begin to configuring your <a href="https://community.sailpoint.com/t5/Connectors/Virtual-Appliance-Reference-Guide/ta-p/74641" target="_blank">Virtual Appliances</a>. Doing so now will ensure that you are ready to hit the ground running and begin onboarding sources.
+          </p>-->
         </div>
         <div class="col s12 m12 l12">
           <div class="card grey lighten-4">

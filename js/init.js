@@ -33,11 +33,11 @@
     $("#wizard-hr").click(function(){goToStep(0);});
     $("#wizard-applications").click(function(){goToStep(1);});
     $("#wizard-authentication").click(function(){goToStep(2);});
-    $("#wizard-identities").click(function(){goToStep(3);});
-    $("#wizard-password").click(function(){goToStep(4);});
+    $("#wizard-password").click(function(){goToStep(3);});
+    $("#wizard-identities").click(function(){goToStep(4);});
     $("#wizard-conversions").click(function(){goToStep(5);});
     $("#wizard-provisioning").click(function(){goToStep(6);});
-    $("#wizard-roles-and-access").click(function(){goToStep(7);});
+    $("#wizard-rolesAndAccess").click(function(){goToStep(7);});
     $("#wizard-certifications").click(function(){goToStep(8);});
     $("#wizard-integrations").click(function(){goToStep(9);});
 
@@ -48,22 +48,23 @@
     
     $("#reset-link").click(function(){confirmReset();});
 
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
+  });
+})(jQuery);
 
-var steps = ['hr','applications','authentication','identities','password','conversions','provisioning','roles-and-access','certifications','integrations'];
+var steps = ['hr','applications','authentication','password','identities','conversions','provisioning','rolesAndAccess','certifications','integrations'];
 var dataModel = JSON.parse("{\r\n" + 
 "	\"hr\": [\"name\", \"populationType\", \"aggFrequency\", \"sandbox\", \"connector\", \"managerCorrelation\", \"comments\"],\r\n" + 
 "	\"applications\": [\"name\", \"populationType\", \"aggFrequency\", \"sandbox\", \"connector\", \"accountCorrelation\", \"numberOfAccounts\", \"numberOfEntitlements\", \"purpose\", \"adminAccounts\", \"adminAccountFilter\", \"comments\"],\r\n" + 
-"	\"authentication\": [\"authenticationSource\", \"singleSignOn\", \"passwordReset\", \"mfa\", \"mfaProvider\", \"comments\"],\r\n" + 
-"	\"identities\": [\"lcsName\", \"logic\", \"applicationName*\", \"accessChange*\", \"comments*\"],\r\n" + 
+"	\"authentication\": [\"authenticationSource\", \"singleSignOn\", \"passwordReset\", \"mfa\", \"providerMfa\", \"comments\"],\r\n" + 
 "	\"password\": [\"passwordInterceptor\", \"desktopPasswordReset\", \"sourcesToSync\", \"comments\"],\r\n" + 
+"	\"identities\": [\"lcsName\", \"logic\", \"applicationName*\", \"accessChange*\", \"comments*\"],\r\n" + 
 "	\"conversions\": [\"type\", \"applicationName*\", \"accessChange*\", \"comments*\"],\r\n" + 
-"	\"provisioning\": [\"birthrightAccess\", \"rbac\", \"emailNotifications\", \"emailList\", \"accountIDLogic\", \"passwordLogic\", \"comments\"],\r\n" + 
-"	\"roles-and-access\": [\"robo\", \"roboFor\", \"rbac\", \"approvalProcesses\", \"rbacDesc\", \"comments\"],\r\n" + 
-"	\"certifications\": [\"managerCerts\", \"sourceOwnerCerts\", \"certFrequency\", \"eventBased\", \"eventBasedDesc\", \"adHoc\", \"adHocDesc\", \"comments\"],\r\n" + 
+"	\"provisioning\": [\"name\", \"birthrightAccess\", \"rbac\", \"emailNotifications\", \"emailList\", \"accountIDLogic\", \"passwordLogic\", \"comments\"],\r\n" + 
+"	\"rolesAndAccess\": [\"robo\", \"forRobo\", \"rbac\", \"approvalProcesses\", \"descRbac\", \"comments\"],\r\n" + 
+"	\"certifications\": [\"managerCerts\", \"sourceOwnerCerts\", \"certFrequency\", \"eventBased\", \"descEventBased\", \"adHoc\", \"descAdHoc\", \"comments\"],\r\n" + 
 "	\"integrations\": [\"ticketingSystem\", \"sandbox\", \"comments\"]\r\n" + 
 "}");
+var codeToEnglish = JSON.parse("{\"regex\":[{\"input\":\"hr-name\",\"replacement\":\"Source Name\"},{\"input\":\"hr-populationType\",\"replacement\":\"Population\"},{\"input\":\"hr-aggFrequency\",\"replacement\":\"Aggregation Frequency\"},{\"input\":\"hr-sandbox\",\"replacement\":\"Sandbox Environment Exists?\"},{\"input\":\"hr-connector\",\"replacement\":\"SailPoint Connector\"},{\"input\":\"hr-managerCorrelation\",\"replacement\":\"Manager Correlation Info\"},{\"input\":\"hr-comments\",\"replacement\":\"Comments\"},{\"input\":\"applications-name\",\"replacement\":\"Application Name\"},{\"input\":\"applications-populationType\",\"replacement\":\"Population\"},{\"input\":\"applications-aggFrequency\",\"replacement\":\"Aggregation Frequency\"},{\"input\":\"applications-sandbox\",\"replacement\":\"Sandbox Environment Exists?\"},{\"input\":\"applications-connector\",\"replacement\":\"SailPoint Connector\"},{\"input\":\"applications-accountCorrelation\",\"replacement\":\"Account Correlation Info\"},{\"input\":\"applications-numberOfAccounts\",\"replacement\":\"Number of Accounts\"},{\"input\":\"applications-numberOfEntitlements\",\"replacement\":\"Number of Entitlements\"},{\"input\":\"applications-purpose\",\"replacement\":\"Purpose of Application\"},{\"input\":\"applications-adminAccounts\",\"replacement\":\"Admin Accounts in Source?\"},{\"input\":\"applications-adminAccountFilter\",\"replacement\":\"Admin Accounts Identified By\"},{\"input\":\"applications-comments\",\"replacement\":\"Comments\"},{\"input\":\"authentication-authenticationSource\",\"replacement\":\"Authentication Source for IDN\"},{\"input\":\"authentication-singleSignOn\",\"replacement\":\"Single Sign On?\"},{\"input\":\"authentication-passwordReset\",\"replacement\":\"Password Reset?\"},{\"input\":\"authentication-mfa\",\"replacement\":\"MFA?\"},{\"input\":\"authentication-providerMfa\",\"replacement\":\"MFA Provider\"},{\"input\":\"authentication-comments\",\"replacement\":\"Comments\"},{\"input\":\"password-passwordInterceptor\",\"replacement\":\"Require Password Interceptor?\"},{\"input\":\"password-desktopPasswordReset\",\"replacement\":\"Require Desktop Password Reset?\"},{\"input\":\"password-sourcesToSync\",\"replacement\":\"Sources to Sync\"},{\"input\":\"password-comments\",\"replacement\":\"Comments\"},{\"input\":\"identities-lcsName\",\"replacement\":\"Lifecycle State\"},{\"input\":\"identities-logic\",\"replacement\":\"LCS Logic\"},{\"input\":\"identities-applicationName\",\"replacement\":\"Application Name\"},{\"input\":\"identities-accessChange\",\"replacement\":\"Changes in Access\"},{\"input\":\"identities-comments\",\"replacement\":\"Comments\"},{\"input\":\"conversions-type\",\"replacement\":\"Type of Conversion\"},{\"input\":\"conversions-applicationName\",\"replacement\":\"Application Name\"},{\"input\":\"conversions-accessChange\",\"replacement\":\"Changes in Access\"},{\"input\":\"conversions-comments\",\"replacement\":\"Comments\"},{\"input\":\"provisioning-name\",\"replacement\":\"Application Name\"},{\"input\":\"provisioning-birthrightAccess\",\"replacement\":\"Birthright Access to Grant\"},{\"input\":\"provisioning-rbac\",\"replacement\":\"Using Role-Based Access?\"},{\"input\":\"provisioning-emailNotifications\",\"replacement\":\"Send Notifications on Create?\"},{\"input\":\"provisioning-emailList\",\"replacement\":\"Person(s) to Notify\"},{\"input\":\"provisioning-accountIDLogic\",\"replacement\":\"Account ID Generation Logic\"},{\"input\":\"provisioning-passwordLogic\",\"replacement\":\"Initial Password Logic\"},{\"input\":\"provisioning-comments\",\"replacement\":\"Comments\"},{\"input\":\"rolesAndAccess-robo\",\"replacement\":\"Allow Requests on Behalf Of?\"},{\"input\":\"rolesAndAccess-forRobo\",\"replacement\":\"Allow ROBO For\"},{\"input\":\"rolesAndAccess-rbac\",\"replacement\":\"Using Role-Based Access?\"},{\"input\":\"rolesAndAccess-approvalProcesses\",\"replacement\":\"Access Request Approval Workflows\"},{\"input\":\"rolesAndAccess-descRbac\",\"replacement\":\"Role-Based Access Requirements\"},{\"input\":\"rolesAndAccess-comments\",\"replacement\":\"Comments\"},{\"input\":\"certifications-managerCerts\",\"replacement\":\"Manager Certifications?\"},{\"input\":\"certifications-sourceOwnerCerts\",\"replacement\":\"Source Owner Certifications?\"},{\"input\":\"certifications-certFrequency\",\"replacement\":\"Frequency of Certifications\"},{\"input\":\"certifications-eventBased\",\"replacement\":\"Certifications Driven Off Events?\"},{\"input\":\"certifications-descEventBased\",\"replacement\":\"Event-Driven Certification Requirements\"},{\"input\":\"certifications-adHoc\",\"replacement\":\"One-Off/Ad Hoc Certifications?\"},{\"input\":\"certifications-descAdHoc\",\"replacement\":\"One-Off/Ad Hoc Certification Requirements\"},{\"input\":\"certifications-comments\",\"replacement\":\"Comments\"},{\"input\":\"integrations-ticketingSystem\",\"replacement\":\"Ticketing System Name\"},{\"input\":\"integrations-sandbox\",\"replacement\":\"Sandbox Environment Available?\"},{\"input\":\"integrations-comments\",\"replacement\":\"Comments\"}]}");
 
 function saveProgress() {
 
@@ -73,7 +74,7 @@ function saveProgress() {
   var savedStep = 0;
   if("savedStep" in localStorage) {savedStep = localStorage.getItem("savedStep");}
   
-  for(var module=0; module<=savedStep; module++) {
+  for(var module=0; module<steps.length; module++) {
     //For each module
     var moduleName = steps[module];
     var moduleDTO = "";
@@ -87,7 +88,7 @@ function saveProgress() {
       case "password": moduleDTO = dataModel.password; break;
       case "conversions": moduleDTO = dataModel.conversions; break;
       case "provisioning": moduleDTO = dataModel.provisioning; break;
-      case "roles-and-access": moduleDTO = dataModel.rolesAndAccess; break;
+      case "rolesAndAccess": moduleDTO = dataModel.rolesAndAccess; break;
       case "certifications": moduleDTO = dataModel.certifications; break;
       case "integrations": moduleDTO = dataModel.integrations; break;
     }
@@ -95,16 +96,14 @@ function saveProgress() {
     $('.row[data-class="'+moduleName+'-card"]').each(function(){
       var id = $(this).attr('id');
       var counter = id.replace(moduleName+"-card-","");
-      //For each entry in the module, build the JSON object
 
+      //For each entry in the module, build the JSON object
       var entryObj = JSON.parse("{}");
       for(var dtoCounter=0; dtoCounter<moduleDTO.length; dtoCounter++) {
         var dtoVariable = moduleDTO[dtoCounter];
 
         if(dtoVariable.includes("*")) {
           //We have multiple sources as part of this attribute; need to cycle through them all
-          //Need to clear the data object's sources list
-          dataObj.attributes.sources.length = 0;
           $('.row[data-class="applications-card"]').each(function(){
             var id = $(this).attr('id');
             var thisID = 0;
@@ -146,20 +145,19 @@ function saveProgress() {
 }
 
 function retrieveProgress() {
-
-  var moduleCounter = 0;
   var savedData = JSON.parse(localStorage.getItem("savedData"));
   var hr = false;
   var applications = false;
   var identities = false;
   var conversions = false;
+  var provisioning = false;
   
   if(savedData != null) {
     var savedStep = 0;
     if("savedStep" in localStorage) {savedStep = localStorage.getItem("savedStep");}
 
 
-    for(var module=0; module<=savedStep; module++) {
+    for(var module=0; module<steps.length; module++) {
       //For each module
       var dataObj = savedData.data[module];
       if(typeof dataObj !== "undefined") {
@@ -175,7 +173,7 @@ function retrieveProgress() {
           case "password": moduleDTO = dataModel.password; break;
           case "conversions": moduleDTO = dataModel.conversions; break;
           case "provisioning": moduleDTO = dataModel.provisioning; break;
-          case "roles-and-access": moduleDTO = dataModel.rolesAndAccess; break;
+          case "rolesAndAccess": moduleDTO = dataModel.rolesAndAccess; break;
           case "certifications": moduleDTO = dataModel.certifications; break;
           case "integrations": moduleDTO = dataModel.integrations; break;
         }
@@ -191,7 +189,6 @@ function retrieveProgress() {
           if(typeof entryObj !== "undefined") {
             for(var dtoCounter=0; dtoCounter<moduleDTO.length; dtoCounter++) {
               var dtoVariable = moduleDTO[dtoCounter];
-
               if(dtoVariable.includes("*")) {
                 //We have multiple sources as part of this attribute; need to cycle through them all
                 $('.row[data-class="applications-card"]').each(function(){
@@ -199,7 +196,6 @@ function retrieveProgress() {
                   var thisID = 0;
                   thisID = id.replace("applications-card-","");
                   var entryObjVar = dtoVariable.replace("*","")+"-"+thisID;
-
                   $("#"+moduleName+"-"+entryObjVar+"-"+arrayCounter).val(entryObj[entryObjVar]);
                 });
               }
@@ -216,10 +212,6 @@ function retrieveProgress() {
     }
 
   }
-
-  //Add in starter cards if this is the first run
-  if(!hr) {renderHRSourceCard(1);}
-  if(!applications) {renderApplicationCard(1);}
 
   //Dynamically populate the source dropdowns/cards as needed
   refreshApplications();
@@ -250,8 +242,13 @@ function goToHome() {
 function goToNext() {
   var currStep = 0;
   if("currStep" in localStorage) {currStep = parseInt(localStorage.getItem("currStep"));}
+
+  if(currStep == 1) {
+    //Need to set app changes to true so that auth card refreshes
+    localStorage.setItem("appChanges","true");
+  }
   
-  if(currStep == 8) {
+  if(currStep == 9) {
     showSendToSailPointForm();
   }
   else {
@@ -480,6 +477,7 @@ function renderHRSourceCard(sourceNum) {
   "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
   "                          <input data-class=\"hr\" placeholder=\"\" data-key=\"aggFrequency\" id=\"hr-aggFrequency-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"hr-aggFrequency-"+sourceNum+"\">Data Change Freq.</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">What does this mean?<span class=\"tooltiptext\">This is how often we would need to read user records from the system in order to capture changes in a timely fashion.</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
   "                          <select class=\"indigo-text darken-4\" data-class=\"hr\" data-key=\"sandbox\" id=\"hr-sandbox-"+sourceNum+"\">\r\n" + 
@@ -488,6 +486,7 @@ function renderHRSourceCard(sourceNum) {
   "                            <option class=\"indigo-text darken-4\" value=\"No\">No</option>\r\n" + 
   "                          </select>\r\n" + 
   "                          <label>Sandbox/Dev Instance?</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">What does this mean?<span class=\"tooltiptext\">Is there a 'test' system or dummy data available for us to develop against?</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                      </div>\r\n" + 
   "                      <div class=\"row\">\r\n" + 
@@ -558,6 +557,7 @@ function renderHRSourceCard(sourceNum) {
   "                            <option class=\"indigo-text darken-4\" value=\"Yammer\">Yammer</option>\r\n" + 
   "                          </select>\r\n" + 
   "                          <label>Connectivity</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">Not sure?<span class=\"tooltiptext\">If you're unsure which connector applies, please reference the Deciding Which Connector to Use article linked above.</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m6 l6\">\r\n" + 
   "                          <input data-class=\"hr\" placeholder=\"e.g., Manager's employeeID is MANAGER_ID in user record\" data-key=\"managerCorrelation\" id=\"hr-managerCorrelation-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
@@ -612,12 +612,14 @@ function renderApplicationCard(sourceNum) {
   "                            <option class=\"indigo-text darken-4\" value=\"Full-Time and Contractors\">Full-Time and Contractors</option>\r\n" + 
   "                            <option class=\"indigo-text darken-4\" value=\"Full-Time and Contingent\">Full-Time and Contingent</option>\r\n" + 
   "                            <option class=\"indigo-text darken-4\" value=\"Contractors and Contingent\">Contractors and Contingent</option>\r\n" + 
+  "                            <option class=\"indigo-text darken-4\" value=\"Other\">Other (describe in comments)</option>\r\n" + 
   "                          </select>\r\n" + 
   "                          <label>Worker Population</label>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
   "                          <input data-class=\"applications\" placeholder=\"\" data-key=\"aggFrequency\" id=\"applications-aggFrequency-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"applications-aggFrequency-"+sourceNum+"\">Data Change Freq.</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">What does this mean?<span class=\"tooltiptext\">This is how often we would need to read user records from the system in order to capture changes in a timely fashion.</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
   "                          <select class=\"indigo-text darken-4\" data-class=\"applications\" data-key=\"sandbox\" id=\"applications-sandbox-"+sourceNum+"\">\r\n" + 
@@ -626,6 +628,7 @@ function renderApplicationCard(sourceNum) {
   "                            <option class=\"indigo-text darken-4\" value=\"No\">No</option>\r\n" + 
   "                          </select>\r\n" + 
   "                          <label>Sandbox/Dev Instance?</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">What does this mean?<span class=\"tooltiptext\">Is there a 'test' system or dummy data available for us to develop against?</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                      </div>\r\n" + 
   "                      <div class=\"row\">\r\n" + 
@@ -699,7 +702,7 @@ function renderApplicationCard(sourceNum) {
   "                          <span class=\"helper-text\"><div class=\"tooltip\">Not sure?<span class=\"tooltiptext\">If you're unsure which connector applies, please reference the Deciding Which Connector to Use article linked above.</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m6 l6\">\r\n" + 
-  "                          <input data-class=\"applications\" placeholder=\"\" data-key=\"accountCorrelation\" id=\"applications-accountCorrelation-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
+  "                          <input data-class=\"applications\" placeholder=\"e.g., User's employee number is in the 'employeeID' field of the account\" data-key=\"accountCorrelation\" id=\"applications-accountCorrelation-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"applications-accountCorrelation-"+sourceNum+"\">Account Correlation Info</label>\r\n" + 
   "                        </div>\r\n" + 
   "                      </div>\r\n" + 
@@ -707,10 +710,12 @@ function renderApplicationCard(sourceNum) {
   "                        <div class=\"input-field col s12 m4 l2\">\r\n" + 
   "                          <input data-class=\"applications\" placeholder=\"\" data-key=\"numberOfAccounts\" id=\"applications-numberOfAccounts-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"applications-numberOfAccounts-"+sourceNum+"\">No. of Accounts</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">What does this mean?<span class=\"tooltiptext\">Approx. how many user records are in this system?</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m4 l2\">\r\n" + 
   "                          <input data-class=\"applications\" placeholder=\"\" data-key=\"numberOfEntitlements\" id=\"applications-numberOfEntitlements-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"applications-numberOfEntitlements-"+sourceNum+"\">No. of Entitlements</label>\r\n" + 
+  "                          <span class=\"helper-text\"><div class=\"tooltip\">What does this mean?<span class=\"tooltiptext\">Approx. how many unique access items (roles, groups, permissions, etc.) are in this system?</span></div></span>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m4 l8\">\r\n" + 
   "                          <input data-class=\"applications\" placeholder=\"\" data-key=\"purpose\" id=\"applications-purpose-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
@@ -728,7 +733,7 @@ function renderApplicationCard(sourceNum) {
   "                          <label>Admin/Service Accounts?</label>\r\n" + 
   "                        </div>\r\n" + 
   "                        <div class=\"input-field col s12 m8 l10\">\r\n" + 
-  "                          <input data-class=\"applications\" placeholder=\"\" data-key=\"adminAccountFilter\" id=\"applications-adminAccountFilter-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
+  "                          <input data-class=\"applications\" placeholder=\"e.g., All admin accounts have '-admin' at the end of the account name\" data-key=\"adminAccountFilter\" id=\"applications-adminAccountFilter-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"applications-adminAccountFilter-"+sourceNum+"\">How can we identify or separate admin/service accounts?</label>\r\n" + 
   "                        </div>\r\n" + 
   "                      </div>\r\n" + 
@@ -765,12 +770,12 @@ function renderLCSCard(sourceNum) {
   "                  <div class=\"row\">\r\n" + 
   "                    <form class=\"col s12 m12 l12\">\r\n" + 
   "                      <div class=\"row\">\r\n" + 
-  "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
-  "                          <input data-class=\"identities\" placeholder=\"\" data-key=\"lcsName\" id=\"identities-lcsName-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
+  "                        <div class=\"input-field col s12 m6 l3\">\r\n" + 
+  "                          <input data-class=\"identities\" placeholder=\"e.g., Active, Terminated\" data-key=\"lcsName\" id=\"identities-lcsName-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"identities-lcsName-"+sourceNum+"\">Name/Status</label>\r\n" + 
   "                        </div>\r\n" + 
-  "                        <div class=\"input-field col s12 m6 l10\">\r\n" + 
-  "                          <input data-class=\"identities\" placeholder=\"\" data-key=\"logic\" id=\"identities-logic-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
+  "                        <div class=\"input-field col s12 m6 l9\">\r\n" + 
+  "                          <input data-class=\"identities\" placeholder=\"e.g., If the user's start date is after the current date, but their status is 'Active', then place them in a 'Prehire' state\" data-key=\"logic\" id=\"identities-logic-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
   "                          <label for=\"identities-logic-"+sourceNum+"\">Criteria/Logic for Assigning to State</label>\r\n" + 
   "                        </div>\r\n" + 
   "                      </div>\r\n";
@@ -781,21 +786,24 @@ function renderLCSCard(sourceNum) {
     var id = $(this).attr('id');
     var idValue = id.replace("applications-card-","");
     var appName = $("#applications-name-"+idValue).val();
+      if(appName == "") {
+        appName = "Unnamed Application " + idValue;
+      }
 
 
-    newHTML += "                      <div class=\"row\" id=\"identities-applications-"+idValue+"\">\r\n" + 
+    newHTML += "                      <div class=\"row\" id=\"identities-applications-"+sourceNum+"\">\r\n" + 
     "                        <div class=\"input-field col s12 m6 l3\">\r\n" + 
-    "                          <input data-class=\"identities\" placeholder=\"\" data-key=\"applicationName-"+idValue+"\" id=\"identities-applicationName-"+idValue+"-"+sourceNum+"\" type=\"text\" class=\"\" value=\""+appName+"\" readonly>\r\n" + 
+    "                          <input data-class=\"identities\" placeholder=\"\" data-key=\"applicationName-"+sourceNum+"\" id=\"identities-applicationName-"+idValue+"-"+sourceNum+"\" type=\"text\" class=\"\" value=\""+appName+"\" readonly>\r\n" + 
     "                          <label for=\"identities-applicationName-"+idValue+"-"+sourceNum+"\">Application</label>\r\n" + 
     "                        </div>\r\n" + 
     "                        <div class=\"input-field col s12 m12 l9\">\r\n" + 
-    "                          <textarea data-class=\"identities\" placeholder=\"\" data-key=\"accessChange-"+idValue+"\" id=\"identities-accessChange-"+idValue+"-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+    "                          <textarea data-class=\"identities\" placeholder=\"e.g., Accounts are created, but in a disabled state\" data-key=\"accessChange-"+sourceNum+"\" id=\"identities-accessChange-"+idValue+"-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
     "                          <label for=\"identities-accessChange-"+idValue+"-"+sourceNum+"\">Access Changes that Occur</label>\r\n" + 
     "                        </div>\r\n" + 
     "                      </div>\r\n" + 
     "                      <div class=\"row\">\r\n" +
     "                        <div class=\"input-field col s12 m12 l12\">\r\n" + 
-    "                          <textarea data-class=\"identities\" placeholder=\"\" data-key=\"comments-"+idValue+"\" id=\"identities-comments-"+idValue+"-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+    "                          <textarea data-class=\"identities\" placeholder=\"\" data-key=\"comments-"+sourceNum+"\" id=\"identities-comments-"+idValue+"-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
     "                          <label for=\"identities-comments-"+idValue+"-"+sourceNum+"\">Additional Notes/Comments (optional)</label>\r\n" + 
     "                        </div>\r\n" + 
     "                      </div>\r\n";
@@ -846,18 +854,18 @@ function renderConversionCard(sourceNum) {
 
     newHTML += "            <div class=\"row\">\r\n" + 
   "              <div class=\"input-field col s12 m6 l3\">\r\n" + 
-  "                <input data-class=\"conversions\" placeholder=\"\" data-key=\"applicationName-"+sourceNum+"\" id=\"conversions-applicationName-"+sourceNum+"-"+idValue+"\" type=\"text\" class=\"\" value=\""+appName+"\" readonly>\r\n" + 
-  "                <label for=\"conversions-applicationName-"+sourceNum+"-1\">Application</label>\r\n" + 
+  "                <input data-class=\"conversions\" placeholder=\"\" data-key=\"applicationName-"+sourceNum+"\" id=\"conversions-applicationName-"+idValue+"-"+sourceNum+"\" type=\"text\" class=\"\" value=\""+appName+"\" readonly>\r\n" + 
+  "                <label for=\"conversions-applicationName-"+idValue+"-"+sourceNum+"\">Application</label>\r\n" + 
   "              </div>\r\n" + 
   "              <div class=\"input-field col s12 m12 l9\">\r\n" + 
-  "                <textarea data-class=\"conversions\" placeholder=\"\" data-key=\"accessChange-"+sourceNum+"\" id=\"conversions-accessChange-"+sourceNum+"-"+idValue+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
-  "                <label for=\"conversions-accessChange-"+sourceNum+"-1\">Access Changes that Occur</label>\r\n" + 
+  "                <textarea data-class=\"conversions\" placeholder=\"\" data-key=\"accessChange-"+sourceNum+"\" id=\"conversions-accessChange-"+idValue+"-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+  "                <label for=\"conversions-accessChange-"+idValue+"-"+sourceNum+"\">Access Changes that Occur</label>\r\n" + 
   "              </div>\r\n" + 
   "            </div>\r\n" + 
   "            <div class=\"row\">\r\n" + 
   "              <div class=\"input-field col s12 m12 l12\">\r\n" + 
-  "                <textarea data-class=\"conversions\" placeholder=\"\" data-key=\"comments-"+sourceNum+"\" id=\"conversions-comments-"+sourceNum+"-"+idValue+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
-  "                <label for=\"conversions-comments-"+sourceNum+"-1\">Additional Notes/Comments (optional)</label>\r\n" + 
+  "                <textarea data-class=\"conversions\" placeholder=\"\" data-key=\"comments-"+sourceNum+"\" id=\"conversions-comments-"+idValue+"-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+  "                <label for=\"conversions-comments-"+idValue+"-"+sourceNum+"\">Additional Notes/Comments (optional)</label>\r\n" + 
   "              </div>\r\n" + 
   "            </div>\r\n";
   appNum++;
@@ -882,6 +890,10 @@ function renderProvisioningCards() {
   //Let's first clear the existing div
   $("#targets-cards").html("");
 
+  var moduleName = "provisioning";
+  var indexLoc = steps.indexOf(moduleName);
+  var savedData = JSON.parse(localStorage.getItem("savedData"));
+
   //We need to add a row for each source saved
   var sourceNum = 1;
   $('.row[data-class="applications-card"]').each(function(){
@@ -889,6 +901,52 @@ function renderProvisioningCards() {
     var idValue = id.replace("applications-card-","");
     var appName = $("#applications-name-"+idValue).val();
       if(appName == "") { appName = "Application " + sourceNum; }
+
+    //We need to get this application's dataObj
+    var birthrightAccess = "";
+    var noRbacSelected = "selected";
+    var rbacYesSelected = "";
+    var rbacNoSelected = "";
+    var noEmailSelected = "selected";
+    var emailYesSelected = "";
+    var emailNoSelected = "";
+    var emailList = "";
+    var accountIDLogic = "";
+    var passwordLogic = "";
+    var comments = "";
+
+    if(savedData != null) {
+      var dataObj = savedData.data[indexLoc];
+      if(typeof dataObj !== "undefined" && dataObj.attributes.sources.length > 0) {
+        var entry = dataObj.attributes.sources[sourceNum-1];
+
+        if(typeof entry !== "undefined") {
+          if(entry.rbac == "Yes") {
+            noRbacSelected = "";
+            rbacYesSelected = "selected";
+          }
+          else if(entry.rbac == "No") {
+            noRbacSelected = "";
+            rbacNoSelected = "selected";
+          }
+  
+          if(entry.emailNotifications == "Yes") {
+            noEmailSelected = "";
+            emailYesSelected = "selected";
+          }
+          else if(entry.emailNotifications == "No") {
+            noEmailSelected = "";
+            emailNoSelected = "selected";
+          }
+  
+          birthrightAccess = entry.birthrightAccess;
+          emailList = entry.emailList;
+          accountIDLogic = entry.accountIDLogic;
+          passwordLogic = entry.passwordLogic;
+          comments = entry.comments;
+        }
+      }
+    }
 
     var newHTML = "<div class=\"row\" data-class=\"provisioning-card\" id=\"provisioning-card-"+sourceNum+"\">\r\n" + 
     "             <div class=\"col s12 m12 l12\">\r\n" + 
@@ -899,43 +957,44 @@ function renderProvisioningCards() {
     "                    <form class=\"col s12 m12 l12\">\r\n" + 
     "                      <div class=\"row\">\r\n" + 
     "                        <div class=\"input-field col s12 m12 l8\">\r\n" + 
-    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"birthrightAccess\" id=\"provisioning-birthrightAccess-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+    "                          <input data-class=\"provisioning\" data-key=\"name\" id=\"provisioning-name-"+sourceNum+"\" type=\"hidden\" value=\""+appName+"\">\r\n" + 
+    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"birthrightAccess\" id=\"provisioning-birthrightAccess-"+sourceNum+"\" class=\"materialize-textarea\">"+birthrightAccess+"</textarea>\r\n" + 
     "                          <label for=\"provisioning-birthrightAccess-"+sourceNum+"\">Entitlements Given as Birthright</label>\r\n" + 
     "                        </div>\r\n" + 
     "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
     "                          <select class=\"indigo-text darken-4\" data-class=\"provisioning\" data-key=\"rbac\" id=\"provisioning-rbac-"+sourceNum+"\">\r\n" + 
-    "                            <option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\"\" disabled selected>Select...</option>\r\n" + 
-    "                            <option class=\"indigo-text darken-4\" value=\"Yes\">Yes</option>\r\n" + 
-    "                            <option class=\"indigo-text darken-4\" value=\"No\">No</option>\r\n" + 
+    "                            <option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\"\" disabled "+noRbacSelected+">Select...</option>\r\n" + 
+    "                            <option class=\"indigo-text darken-4\" value=\"Yes\" "+rbacYesSelected+">Yes</option>\r\n" + 
+    "                            <option class=\"indigo-text darken-4\" value=\"No\" "+rbacNoSelected+">No</option>\r\n" + 
     "                          </select>\r\n" + 
     "                          <label>Role-Based Also?</label>\r\n" + 
     "                        </div>\r\n" + 
     "                        <div class=\"input-field col s12 m6 l2\">\r\n" + 
     "                          <select class=\"indigo-text darken-4\" data-class=\"provisioning\" data-key=\"emailNotifications\" id=\"provisioning-emailNotifications-"+sourceNum+"\">\r\n" + 
-    "                            <option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\"\" disabled selected>Select...</option>\r\n" + 
-    "                            <option class=\"indigo-text darken-4\" value=\"Yes\">Yes</option>\r\n" + 
-    "                            <option class=\"indigo-text darken-4\" value=\"No\">No</option>\r\n" + 
+    "                            <option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\"\" disabled "+noEmailSelected+">Select...</option>\r\n" + 
+    "                            <option class=\"indigo-text darken-4\" value=\"Yes\" "+emailYesSelected+">Yes</option>\r\n" + 
+    "                            <option class=\"indigo-text darken-4\" value=\"No\" "+emailNoSelected+">No</option>\r\n" + 
     "                          </select>\r\n" + 
     "                          <label>Send Emails on Create?</label>\r\n" + 
     "                        </div>\r\n" + 
     "                      </div>\r\n" + 
     "                      <div class=\"row\">\r\n" + 
     "                        <div class=\"input-field col s12 m6 l4\">\r\n" + 
-    "                          <input data-class=\"provisioning\" placeholder=\"\" data-key=\"emailList\" id=\"provisioning-emailList-"+sourceNum+"\" type=\"text\" class=\"\" value=\"\">\r\n" + 
+    "                          <input data-class=\"provisioning\" placeholder=\"\" data-key=\"emailList\" id=\"provisioning-emailList-"+sourceNum+"\" type=\"text\" class=\"\" value=\""+emailList+"\">\r\n" + 
     "                          <label for=\"provisioning-emailList-"+sourceNum+"\">Users/Groups to Notify</label>\r\n" + 
     "                        </div>\r\n" + 
     "                        <div class=\"input-field col s12 m12 l4\">\r\n" + 
-    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"accountIDLogic\" id=\"provisioning-accountIDLogic-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"accountIDLogic\" id=\"provisioning-accountIDLogic-"+sourceNum+"\" class=\"materialize-textarea\">"+accountIDLogic+"</textarea>\r\n" + 
     "                          <label for=\"provisioning-accountIDLogic-"+sourceNum+"\">Logic for Generating Account ID</label>\r\n" + 
     "                        </div>\r\n" + 
     "                        <div class=\"input-field col s12 m12 l4\">\r\n" + 
-    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"passwordLogic\" id=\"provisioning-passwordLogic-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"passwordLogic\" id=\"provisioning-passwordLogic-"+sourceNum+"\" class=\"materialize-textarea\">"+passwordLogic+"</textarea>\r\n" + 
     "                          <label for=\"provisioning-passwordLogic-"+sourceNum+"\">Logic for Generating Initial Password</label>\r\n" + 
     "                        </div>\r\n" + 
     "                      </div>\r\n" + 
     "                      <div class=\"row\">\r\n" + 
     "                        <div class=\"input-field col s12 m12 l12\">\r\n" + 
-    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"comments\" id=\"provisioning-comments-"+sourceNum+"\" class=\"materialize-textarea\"></textarea>\r\n" + 
+    "                          <textarea data-class=\"provisioning\" placeholder=\"\" data-key=\"comments\" id=\"provisioning-comments-"+sourceNum+"\" class=\"materialize-textarea\">"+comments+"</textarea>\r\n" + 
     "                          <label for=\"provisioning-comments-"+sourceNum+"\">Additional Notes/Comments (optional)</label>\r\n" + 
     "                        </div>\r\n" + 
     "                      </div>\r\n" + 
@@ -956,6 +1015,7 @@ function renderProvisioningCards() {
     }
   });
 
+  $("select").formSelect();
 }
 
 function refreshApplications() {
@@ -965,13 +1025,30 @@ function refreshApplications() {
   var selectOptions = "<option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\"\" disabled selected>Select...</option>";
   selectOptions += "<option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\"IdentityNow\">IdentityNow</option>";
 
-  //We need to add an entry to the  for each source saved
+  //We need to add an entry to the authentication dropdown for each source saved
   $('.row[data-class="applications-card"]').each(function(){
     var id = $(this).attr('id');
     var idValue = id.replace("applications-card-","");
     var appName = $("#applications-name-"+idValue).val();
+      if(appName == "") {
+        appName = "Unnamed Application " + idValue;
+      }
 
-    selectOptions += "<option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\""+appName+"\">"+appName+"</option>";
+    var selectedHTML = "";
+    var savedData = JSON.parse(localStorage.getItem("savedData"));
+    var indexLoc = steps.indexOf("authentication");
+
+    if(savedData != null) {
+      var dataObj = savedData.data[indexLoc];
+
+      if(typeof dataObj !== "undefined") {
+        var authSource = dataObj.attributes.sources[0].authenticationSource;
+        if(appName == authSource) {
+          selectedHTML = "selected";
+        }
+      }
+    }
+    selectOptions += "<option class=\"indigo-text darken-4\" style=\"color: #3f51b5 !important;\" value=\""+appName+"\" " + selectedHTML + ">"+appName+"</option>";
     appNum++;
   });
 
@@ -979,9 +1056,7 @@ function refreshApplications() {
   $("#authentication-authenticationSource-1").html(selectOptions);
   $("select").formSelect();
 
-  //We need to re-render the LCS and Movers cards
-  refreshLCSCards();
-  refreshMoversCards();
+  //We need to re-render the provisioning cards
   renderProvisioningCards();
   localStorage.setItem("appChanges","false");
 }
@@ -998,7 +1073,8 @@ function refreshLCSCards() {
 
     //identities
     var moduleName = "identities";
-    var dataObj = savedData.data[moduleName];
+    var indexLoc = steps.indexOf(moduleName);
+    var dataObj = savedData.data[indexLoc];
     var moduleDTO = dataModel.identities;
     if(typeof dataObj !== "undefined") {
       var arrayCounter = 1;
@@ -1020,8 +1096,6 @@ function refreshLCSCards() {
       while(arrayCounter<=entries.length);
     }
   }
-
-  if(!identities) {renderLCSCard(1);}
 }
 
 function refreshMoversCards() {
@@ -1036,7 +1110,8 @@ function refreshMoversCards() {
 
     //conversions
     var moduleName = "conversions";
-    var dataObj = savedData.data[moduleName];
+    var indexLoc = steps.indexOf(moduleName);
+    var dataObj = savedData.data[indexLoc];
     var moduleDTO = dataModel.conversions;
     if(typeof dataObj !== "undefined") {
       var arrayCounter = 1;
@@ -1044,7 +1119,7 @@ function refreshMoversCards() {
 
       do {
         //For each entry in the module, get the JSON object and render it to the UI
-        renderLCSCard(arrayCounter);
+        renderConversionCard(arrayCounter);
         var entryObj = entries[arrayCounter-1];
         if(typeof entryObj !== "undefined") {
           for(var dtoCounter=0; dtoCounter<moduleDTO.length; dtoCounter++) {
@@ -1058,7 +1133,6 @@ function refreshMoversCards() {
       while(arrayCounter<=entries.length);
     }
   }
-  if(!conversions) {renderConversionCard(1);}
 }
 
 function showSendToSailPointForm() {
@@ -1094,7 +1168,7 @@ function generateMarkdownData() {
 
   if(savedData != null) {
 
-    for(var module=0; module<=steps.length; module++) {
+    for(var module=0; module<steps.length; module++) {
       //For each module
       var dataObj = savedData.data[module];
       if(typeof dataObj !== "undefined") {
@@ -1102,16 +1176,23 @@ function generateMarkdownData() {
         var arrayCounter = 1;
         var entries = dataObj.attributes.sources;
 
-        docData += "#### " + moduleName.toUpperCase() + "  \r\n";
+        if(moduleName == "rolesAndAccess") { 
+          docData += "#### ROLES AND ACCESS  \r\n";
+        }
+        else {
+          docData += "#### " + moduleName.toUpperCase() + "  \r\n";
+        }
+        
 
         switch(moduleName) {
           case "hr": moduleDTO = dataModel.hr; break;
           case "applications": moduleDTO = dataModel.applications; break;
           case "authentication": moduleDTO = dataModel.authentication; break;
           case "identities": moduleDTO = dataModel.identities; break;
+          case "password": moduleDTO = dataModel.password; break;
           case "conversions": moduleDTO = dataModel.conversions; break;
           case "provisioning": moduleDTO = dataModel.provisioning; break;
-          case "roles-and-access": moduleDTO = dataModel.rolesAndAccess; break;
+          case "rolesAndAccess": moduleDTO = dataModel.rolesAndAccess; break;
           case "certifications": moduleDTO = dataModel.certifications; break;
           case "integrations": moduleDTO = dataModel.integrations; break;
         }
@@ -1119,25 +1200,40 @@ function generateMarkdownData() {
         do {
           var entryObj = entries[arrayCounter-1];
           if(typeof entryObj !== "undefined") {
+
+            //Prep a table
+            docData += "| Form Field | Response |  \r\n";
+            docData += "| :-- | :-- |  \r\n";
+
             for(var dtoCounter=0; dtoCounter<moduleDTO.length; dtoCounter++) {
-              var dtoVariable = moduleDTO[dtoCounter];
+              if(typeof moduleDTO[dtoCounter] !== "undefined") {
+                var dtoVariable = moduleDTO[dtoCounter];
+                if(dtoVariable.includes("*")) {
+                  //We have multiple sources as part of this attribute; need to cycle through them all
+                  $('.row[data-class="applications-card"]').each(function(){
+                    var id = $(this).attr('id');
+                    var thisID = 0;
+                    thisID = id.replace("applications-card-","");
+                    var entryObjVar = dtoVariable.replace("*","")+"-"+thisID;
 
-              if(dtoVariable.includes("*")) {
-                //We have multiple sources as part of this attribute; need to cycle through them all
-                $('.row[data-class="applications-card"]').each(function(){
-                  var id = $(this).attr('id');
-                  var thisID = 0;
-                  thisID = id.replace("applications-card-","");
-                  var entryObjVar = dtoVariable.replace("*","")+"-"+thisID;
-
-                  docData += "**" + moduleName+"-"+entryObjVar+"-"+arrayCounter + ":** " + entryObj[entryObjVar] + "  \r\n";
-                });
-
-                docData += "  \r\n";
-              }
-              else {
-                //Not source-specific
-                docData += "**" + moduleName+"-"+dtoVariable+"-"+arrayCounter + ":** " + entryObj[dtoVariable] + "  \r\n";
+                    if(typeof entryObj[entryObjVar] !== "undefined" && entryObj[entryObjVar] !== null) {
+                      docData += "| " + moduleName+"-"+entryObjVar+" | " + entryObj[entryObjVar] + " |  \r\n";
+                    }
+                    else {
+                      docData += "| " + moduleName+"-"+entryObjVar+" |  |  \r\n";
+                    }
+                    
+                  });
+                }
+                else {
+                  //Not source-specific
+                  if(typeof entryObj[dtoVariable] !== "undefined" && entryObj[dtoVariable] !== null) {
+                    docData += "| " + moduleName+"-"+dtoVariable+" | " + entryObj[dtoVariable] + " |  \r\n";
+                  }
+                  else {
+                    docData += "| " + moduleName+"-"+dtoVariable+" |  |  \r\n";
+                  }
+                }
               }
             }
             docData += "  \r\n";
@@ -1150,6 +1246,17 @@ function generateMarkdownData() {
         while(arrayCounter<=entries.length);
       }
     }
+  }
+
+  //Replace system IDs with human-readable data
+  var translationModel = codeToEnglish.regex;
+  for(var counter=0; counter < translationModel.length; counter++) {
+    var entry = translationModel[counter];
+    var searchString = entry.input;
+    var replaceString = entry.replacement;
+
+    var replacer = new RegExp(searchString,"g");
+    docData = docData.replace(replacer, replaceString);
   }
 
   localStorage.setItem("mdData",docData);

@@ -48,6 +48,12 @@
     
     $("#reset-link").click(function(){confirmReset();});
 
+    $('label').each(function(){
+      if($(this).attr("for")) {
+        $(this).addClass('active');
+      }
+    });
+
   });
 })(jQuery);
 
@@ -1163,7 +1169,9 @@ function generateMarkdownData() {
 
   var docData = "# SailPoint Requirements Wizard Responses  \r\n";
   docData += "### Client: " + $("#company-name").val() + "  \r\n";
-  docData += "### CSM: " + $("#csm-name").val() + " - " + $("#csm-email").val() + "  \r\n";
+  docData += "### Region: " + $("#customer-region").val() + "  \r\n";
+  docData += "### CSM: " + $("#csm-name").val() + " - " + $("#csm-email").val() + "  \r\n\r\n";
+  docData += "#### Customer Notes\r\n" + $("#send-comments").val() + "  \r\n";
   docData += "  \r\n";
 
   if(savedData != null) {

@@ -531,22 +531,35 @@
               <div class="row">
                 <form class="col s12 m12 l12">
                   <div class="row">
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m4 l4">
                       <input id="company-name" type="text" class="" value="">
-                      <label for="company-name">Company Name</label>
+                      <label for="company-name" class="active">Company Name</label>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m3 l3">
                       <input id="csm-name" type="text" class="" value="">
-                      <label for="csm-name">CSM Name</label>
+                      <label for="csm-name" class="active">CSM Name</label>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m3 l3">
                       <input id="csm-email" type="text" class="" value="">
-                      <label for="csm-email">CSM Email</label>
+                      <label for="csm-email" class="active">CSM Email</label>
+                    </div>
+                    <div class="input-field col s12 m3 l2">
+                      <select class="indigo-text darken-4" id="customer-region">
+                        <option class="indigo-text darken-4" style="color: #3f51b5 !important;" value="" disabled selected>Select...</option>
+                        <option class="indigo-text darken-4" value="North America">North America</option>
+                        <option class="indigo-text darken-4" value="Latin America">Latin America</option>
+                        <option class="indigo-text darken-4" value="Europe">Europe</option>
+                        <option class="indigo-text darken-4" value="Middle East">Middle East</option>
+                        <option class="indigo-text darken-4" value="Asia/Pacific">Asia/Pacific</option>
+                      </select>
+                      <label>Region</label>
                     </div>
                   </div>
-                  <div class="input-field col s12 m12 l12">
-                    <textarea id="send-comments" class="materialize-textarea"></textarea>
-                    <label for="send-comments">Message</label>
+                  <div class="row">
+                    <div class="input-field col s12 m12 l12">
+                      <textarea id="send-comments" class="materialize-textarea"></textarea>
+                      <label for="send-comments" class="active">Message</label>
+                    </div>
                   </div>
                   <div class="row center">
                     <a id="cancel-send-button" class="btn-small waves-effect waves-light indigo darken-4" style="margin-right:25px;">Cancel</a>

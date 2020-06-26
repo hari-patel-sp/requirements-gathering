@@ -15,6 +15,10 @@
 
     $("#close-modal").click(function(){$("#modal").hide();});
 
+    $("#close-pwi-modal").click(function(){$("#password-interceptor-modal").hide();});
+    $("#close-dpr-modal").click(function(){$("#desktop-password-reset-modal").hide();});
+    $("#close-htc-modal").click(function(){$("#how-to-choose-modal").hide();});
+
     $("#cancel-modal").click(function(){$("#reset-modal").hide();});
     $("#accept-modal").click(function(){localStorage.clear(); $("#reset-modal").hide(); window.location.reload();});
 
@@ -56,6 +60,18 @@
 
   });
 })(jQuery);
+
+function showHowToChoose() {
+  $("#how-to-choose-modal").show();
+}
+
+function showDesktopPasswordReset() {
+  $("#desktop-password-reset-modal").show();
+}
+
+function showPasswordInterceptor() {
+  $("#password-interceptor-modal").show();
+}
 
 var steps = ['hr','applications','authentication','password','identities','conversions','provisioning','rolesAndAccess','certifications','integrations'];
 var dataModel = JSON.parse("{\r\n" + 
@@ -1278,24 +1294,36 @@ function downloadResponses() {
 
 function sendAsEmail() {
 
-  showModal("Sorry! This feature isn't supported in offline mode just yet.");
+  generateMarkdownData();
+  var mdData = localStorage.getItem("mdData");
 
-  /*generateMarkdownData();
-  var docData = localStorage.getItem("mdData");
-  saveTextAs(docData,"responses.md");
-  
   var recipientEmail = $("#csm-email").val();
   var recipientName = $("#csm-name").val();
   var customerName = $("#company-name").val();
 
-  var emailSubject = encodeURI("Reqs gathering responses for "+customerName);
+  var emailSubject = "Reqs gathering responses for "+customerName;
   var emailBody = $("#send-comments").val().trim();
   if(emailBody == "" || typeof emailBody === "undefined") {
-    emailBody = encodeURI("Hi "+recipientName+",\r\n\r\nPlease find "+customerName+"'s requirements gathering wizard responses attached.\n\n\r\n");
+    emailBody = "Hi "+recipientName+",\r\n\r\nPlease find "+customerName+"'s requirements gathering wizard responses attached.\n\n\r\n";
   }
   else {
-    emailBody = encodeURI(emailBody+"\r\n\r\n");
+    emailBody = emailBody+"\r\n\r\n";
   }
 
-  window.open("mailto:"+recipientEmail+"?subject="+emailSubject+"&body="+emailBody);*/
+  var formData = {
+      "CSMName": recipientName,
+      "CSMEmail": recipientEmail,
+      "CompanyName": customerName,
+      "Message": emailBody+mdData,
+      "elqSiteID":1733242902
+  };
+
+  $.ajax({
+      type: "POST",
+      url: "https://info.sailpoint.com/e/f2?elqFormName=ProfService-ApplicationQuestionnaire",
+      data: formData,
+      encode: true,
+  })
+
+  showModal("Success! Your message has been sent to SailPoint; a member of our Professional Services team will reach out to you soon with next steps.");
 }

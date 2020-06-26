@@ -106,9 +106,30 @@ nav .brand-logo {
   border: 2px solid #616161;
 }
 
+.modal-full-page {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 0; /* Location of the box */
+  left: 3%;
+  top: 3%;
+  width: 94%; /* Half width */
+  height: 94%; /* Full height */
+  overflow: scroll; /* Enable scroll if needed */
+  background-color: #fafafa;
+  border: 2px solid #616161;
+}
+
 /* Modal Content */
 .modal-content-no-pad {
   background-color: #ededed;
+  margin: auto;
+  padding: 25px;
+  width: 100%;
+}
+
+.modal-content-no-pad-full-page {
+  background-color: #fafafa;
   margin: auto;
   padding: 25px;
   width: 100%;
